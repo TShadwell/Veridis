@@ -9,6 +9,8 @@ class Veridis:
 				Self.height=percheight
 				Self.left=percleft
 				Self.top=perctop
+				r_width=Self.width/100
+				r_height=Self.height/100
 	def __init__(Self):
 		import notify
 		import settings
