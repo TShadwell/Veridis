@@ -1,7 +1,7 @@
 store ={}
-def readsettings(Notify, Veridis):
+def readsettings(filename, Notify, Veridis):
 	try:
-		tasks = open("data/tasks")
+		tasks = open(filename)
 		t=tasks.read().rstrip("}").split("\n")
 		tasks.close()
 		Aliases={}
