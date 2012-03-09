@@ -25,6 +25,8 @@ def init(Screen):
 	curses.init_pair(2, curses.COLOR_YELLOW, curses.COLOR_BLACK)
 	curses.curs_set(0)
 	veridis = Veridis()
+	veridis.settings.tasks = veridis.settings.readsettings("data/tasks", veridis)
+	veridis.settings.schedule = veridis.settings.readsettings("data/schedule", veridis)
 	main(Screen, veridis)
 #################
 curses.wrapper(init)
