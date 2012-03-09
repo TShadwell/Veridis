@@ -5,9 +5,12 @@ import notify
 import curses
 ####ENVIRON###
 def tick(Screen, Veridis):
-	update(Screen, Veridis)
+	clock(Screen, Veridis)
 	sleep(60-datetime.now().second)
 	tick(Screen, Veridis)
+def clock(Screen, Veridis):
+	#Calculate the size of the upper-right box to see if an art-based clock would work.
+	pass
 def update(Screen, Veridis):
 	#Redraw frames
 	Screen.clear()
