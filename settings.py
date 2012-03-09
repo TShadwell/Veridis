@@ -1,4 +1,5 @@
-store ={}
+tasks={}
+schedule={}
 def readsettings(filename, Notify, Veridis):
 	try:
 		tasks = open(filename)
