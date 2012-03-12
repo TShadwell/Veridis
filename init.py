@@ -18,26 +18,48 @@ class Veridis:
 				Self.y=percy
 				Self.padding=padding
 				Self.wrap=wrap
+			def draw (Self, Screen):
+				#[["Time","Event"],[time, event]]
+				#Calculate the widths of the rows
+				height, width = Screen.getmaxyx()
+				
+				#Draw the header
+				
+				#for row in table:
 			
 		class textobject:
-			def __init__(Self, text, percx, percy, padding=(0,0),attrs=0, wrap=-1):
+			def __init__(Self, text, percx, percy, padding=(0,0),attrs=0, wrapy=False):
 				Self.text= text
 				Self.top= percy
 				Self.left= percx
 				Self.r_top=Self.top/100
 				Self.r_left=Self.left/100
-				Self.wrap=wrap
+				Self.wrapy=wrapy
 				Self.padding=padding
 				Self.attrs = attrs
+			def shift(Self,n, Screen):
+				height, width = Screen.getmaxyx()
+				dest = Self.i_shift + n
+				textlength = len(Self.text.split("\n"))
+				outOfBounds= (not((textlength-dest)<(height-2))
+				if (dest < textlength) and (dest >= 0) and ):
+					Self.i_shift +=n
+				if
+			i_shift =0
 			def draw(Self, Screen):
 				height, width = Screen.getmaxyx()
-				for n, line in enumerate(Self.text.split("\n")):
+				for n, line in (list(enumerate(Self.text.split("\n")[Self.i_shift:(height+Self.i_shift-2)])) if Self.wrapy else enumerate(Self.text.split("\n"))):
 					Screen.addstr(n+int(Self.r_top*height)+Self.padding[1],int(Self.r_left*width)+Self.padding[0],line, Self.attrs)
+				#if Self.wrapy:
+					#Clear up bits that aren't there anymore.
+
 	def __init__(Self):
 		import notify
 		import settings
 		Self.notify=notify
 		Self.settings=settings
+	#Day [(secssincemidnight, length, name)]
+	day=[]
 	running = True
 	frames={}
 	Drawables={}

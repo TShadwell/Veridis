@@ -63,6 +63,17 @@ def react(input, Screen, Veridis):
 	elif (input == 410):
 		update(Screen, Veridis)
 		clock(Screen, Veridis)
+	elif (input == 258):
+		Veridis.Drawables["timetable"].shift(-1, Screen)
+		Veridis.Drawables["timetable"].draw(Screen)
+		Screen.refresh()
+
+	elif (input == 259):
+		Veridis.Drawables["timetable"].shift(1, Screen)
+		Veridis.Drawables["timetable"].draw(Screen)
+		Screen.refresh()
+	else:
+		pass#notify.error(input)
 #####MAIN#####
 def main(Screen, Veridis):
 	curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
@@ -76,8 +87,11 @@ def main(Screen, Veridis):
 	Veridis.Drawables["next"] = Veridis.types.textobject("Next", 70,60, (1,0))
 	#Clock placeholder
 	Veridis.Drawables["clock"] = Veridis.types.textobject("clock", 70,0, (1,1), curses.color_pair(1))
-	Veridis.Drawables["timetable"] = Veridis.types.textobject("\n".join([str(x)for x in range(Screen.getmaxyx()[0]-10)]),0,0,(1,1))
+	Veridis.Drawables["timetable"] = Veridis.types.textobject("\n".join([str(x)for x in range(Screen.getmaxyx()[0]-10)]),0,0,(1,1),0, True)
+	for period in Veridis.settings.schedule:
+		begin, end  = map((lambda t: int(t[:1])*3600+int(t[2:])*60),period["period"].split("-"))
+		Veridis.day.append((begin, end-begin, period["name"]))
 	while Veridis.running:
-		Screen.refresh()
-		update(Screen, Veridis)
+		#Screen.refresh()
+		#update(Screen, Veridis)
 		react(Screen.getch(), Screen, Veridis)
