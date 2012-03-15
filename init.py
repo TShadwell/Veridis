@@ -41,10 +41,9 @@ class Veridis:
 				height, width = Screen.getmaxyx()
 				dest = Self.i_shift + n
 				textlength = len(Self.text.split("\n"))
-				outOfBounds= (not((textlength-dest)<(height-2))
-				if (dest < textlength) and (dest >= 0) and ):
+				outOfBounds= (not((textlength-dest)<(height-2)))
+				if ((dest < textlength) and (dest >= 0)):
 					Self.i_shift +=n
-				if
 			i_shift =0
 			def draw(Self, Screen):
 				height, width = Screen.getmaxyx()

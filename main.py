@@ -91,6 +91,8 @@ def main(Screen, Veridis):
 	for period in Veridis.settings.schedule:
 		begin, end  = map((lambda t: int(t[:1])*3600+int(t[2:])*60),period["period"].split("-"))
 		Veridis.day.append((begin, end-begin, period["name"]))
+	for task in Veridis.settings.tasks:
+		#Locate a part of the day that the task gan go in, and put it there:
 	while Veridis.running:
 		#Screen.refresh()
 		#update(Screen, Veridis)
