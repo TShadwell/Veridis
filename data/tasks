@@ -1,6 +1,6 @@
 Alias n Name
 Alias d Description
-Alias a Alarm
+Alias m min-length
 Alias s Selector
-n:Maths homework;d:page xyz}
-n:Go to school;d:It's time to leave!;a:0720;s:schooldays}
+Alias p Priority
+n:Maths homework;d:page xyz;m:0100;p:t

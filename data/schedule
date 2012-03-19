@@ -2,3 +2,7 @@ Alias n name
 Alias p period
 Alias s selector
 n:school;p:0720-1630;s:schooldays}
+n:sleep;p:2222-0630;s:none}
+n:breakfast;p:0645-0720;s:none}
+n:lunch;p:0220-0330;s:none}
+n:tea;p:0220-0330;s:none

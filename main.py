@@ -3,6 +3,10 @@ from datetime import datetime
 import _thread
 import notify
 import curses
+def Sto24(secs):
+	hour=secs//3600
+	minute =(secs%3600)//60
+	return("%s%s%s%s"%("0"*(2-len(str(hour))),hour,"0"*(2-len(str(minute))), minute))
 ####ENVIRON###
 def tick(Screen, Veridis):
 	clock(Screen, Veridis)
@@ -89,10 +93,31 @@ def main(Screen, Veridis):
 	Veridis.Drawables["clock"] = Veridis.types.textobject("clock", 70,0, (1,1), curses.color_pair(1))
 	Veridis.Drawables["timetable"] = Veridis.types.textobject("\n".join([str(x)for x in range(Screen.getmaxyx()[0]-10)]),0,0,(1,1),0, True)
 	for period in Veridis.settings.schedule:
-		begin, end  = map((lambda t: int(t[:1])*3600+int(t[2:])*60),period["period"].split("-"))
-		Veridis.day.append((begin, end-begin, period["name"]))
-	for task in Veridis.settings.tasks:
-		#Locate a part of the day that the task gan go in, and put it there:
+		begin, end  = map((lambda t: int(t[:2])*3600+int(t[2:])*60),period["period"].split("-"))
+		if int(end-begin) <0:
+			#We need two tasks, because this one wraps around to the next day.
+			Veridis.day.append((begin, 86400-begin, period["name"]))
+			Veridis.day.append((0, end, period["name"]))
+		else:
+			Veridis.day.append((begin, end-begin, period["name"]))
+	Veridis.day=sorted(Veridis.day)
+	lst = []
+	for i in range(len(Veridis.day)+1):
+		n=i-1
+		if n==len(Veridis.day)-1:
+			break
+		elif (n<0) and (not(Veridis.day[i][0]==0)):
+			lst.append((0, Veridis.day[i][0]))
+		elif (n<0):
+			pass
+		else:
+			start =Veridis.day[n][0]+Veridis.day[n][1]
+			lst.append((Veridis.day[n][0]+Veridis.day[n][1], Veridis.day[i][0]))
+
+	notify.error(str(lst)+ "\n|\n" + str(Veridis.day))
+	#for slot in Veridis.settings.day:
+	#	for prioritytask in [x for x in Veridis.settings.tasks if "Priority" in x]:
+
 	while Veridis.running:
 		#Screen.refresh()
 		#update(Screen, Veridis)
