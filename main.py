@@ -102,7 +102,15 @@ def main(Screen, Veridis):
 			Veridis.day.append((begin, end-begin, period["name"]))
 	Veridis.day=sorted(Veridis.day)
 	lst = []
-	for i in range(len(Veridis.day)+1):
+"""
+FUNCTION SUMMARY
+0:00->day[0][0]
+               -> day[1][0]
+                           -> day[2][0] etc..
+lst=(lst.insert(0,(0,0)) if not(lst[0][0]==0) else lst)#Insert a 'phantom' task at the beginning so the later logic notices the 0->day[1] space, if there is no task starting at 0:00.
+[(items[0][0]+items[0][1], items[1][0]) for items in zip(lst, (lst[1:] if (lst[-1][0]+lst[-1][1]==24*3600) else lst.append((24*3600,0))) if not(items[0][0]+items[0][1]>=items[1][0])]
+"""
+	for i in range(len(Veridis.day)+1): #+1 to account for possible 0:00->task[0]
 		n=i-1
 		if n==len(Veridis.day)-1:
 			break
